@@ -1,9 +1,8 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.llms import Ollama
-# from langchain_ollama import OllamaLLM
-
+# from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLM
 
 import streamlit as st
 import os
@@ -30,7 +29,7 @@ st.title('Langchain Demo with OPENAI API')
 input_text=st.text_input("Search the topic you want")
 
 # ollama LLAma 2 llm
-llm=Ollama(model="llama2")
+llm=OllamaLM(model="llama2")
 # llm = OllamaLLM(model="llama2")
 
 output_parser=StrOutputParser()

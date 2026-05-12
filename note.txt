@@ -1,0 +1,30 @@
+Công việc tạo đặc trưng tự động bằng thuật toán skope rule
+
+Thay vì huấn luyện mô hình bằng hộp đen như các mô hình học máy thì huấn luyện bằng skope rule sẽ dễ giải thích hơn, và việc giải thích tại sao một giao dịch lại bị đánh là bất hợp pháp hay không rất quan trọng
+
+Luồng công việc được giải thích cơ bản như sau
+
+Huấn luyện mô hình bằng random forest với mỗi một nhánh, một lá sẽ là một rule, thông qua các bước filter sẽ lọc ra được rule tốt nhất (thỏa mãn điều kiện đặt ra) và với rule mới này có thể hit được bao nhiêu 防止額
+
+## **自動ルール作成の概要**
+
+不正検知において、「なぜその取引が不正だと判断されたか」という説明可能性（Explainability）は非常に重要です。そのため、中身が見えない「ブラックボックス型」のモデルではなく、**Skope-rules**を活用した手法を採用しています。
+
+**具体的な流れ：**
+
+1. まず、**ランダムフォレスト（Random Forest）を使って学習を行います。この時、モデル内の「木の枝」や「葉」の分かれ道を、不正を特定するためのルールの候補**として抽出します。
+2. 次に、あらかじめ決めた条件（精度など）に基づいて、それらの候補をフィルタリング（選別）します。
+3. 最終的に、最も効果的なルールを自動で特定し、そのルールがどれくらいの不正を捉えたか（**ヒット率**）や、いくら損失を防げたか（**防止額**）を評価します。
+
+Quy trình đánh giá
+
+Đánh giá xem luật của mình trong mô hình thực tế đã chặn được bao nhiêu tiền giao dịch
+
+Trong mô hình thực tế, một trường hợp được xác định là fusei bằng các rule đặc định (A, B, S…) sẽ có những trường hợp không bị chặn bởi bất kỳ rule nào, trong số những trường hợp không bị bị chặn bởi rule đặc định, rule mà mình tìm được thực tế đã chặn được bao nhiêu vụ và boushi được bao nhiêu tiền
+
+作成したルールが、実際の運用でどれくらいの金額を防げるかを評価します。
+
+- **評価の背景：**
+実際の運用モデルでは、すでに特定のルール（ルールA、B、Sなど）によって不正が検知されています。
+- **評価の内容：**
+システム全体で検知した「合計ヒット件数」と「合計防止額」のうち、今回新しく作成したルールが実際にどれだけの件数をヒットし、いくら分の金額を阻止できたかを算出します。
